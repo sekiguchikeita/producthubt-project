@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<style>
+
+.row2{
+    word-wrap: break-word;
+}
+
+.time{
+    padding-left:80px;
+
+}
+
+.main_image{
+    width: 600px;
+    padding-left: 10px;
+    
+}
+
+.vote{
+    width:400px;
+    padding-left: 200px;
+    padding-top: 150px;
+}
+
+.body{
+    width: 600px;
+}
+
+
+
+</style>
+
+    {% extends 'base.htm' %}
+
+{% block content %}
+
+<br />
+    <div class="row">
+        <div class="col-2">
+            <img src="{{ product.icon.url }}"  class="img-fluid" />
+        </div>
+
+        <div class="col-10">
+            <a href="{{ product.url }}"><h2>{{ product.title }}</h2></a>
+        </div>     
+    </div>
+<br /> 
+<br /> 
+
+    <div class="row">
+        <div class="main_image">
+            <img src="{{ product.image.url }}"  class="img-fluid" />
+        </div>
+        <div class="vote">
+            <a href="javascript:{document.getElementById('upvote').submit()}"><button class="btn btn-primary btn-lg btn-block"><span class="oi oi-caret-top"></span> Upvote {{ product.votes_total }}</button></a>
+        </div>     
+    </div>
+
+
+    
+<br /> 
+
+
+<div class="row pt-2" >
+    <div class="col-4">
+       <h4>{{ product.hunter.username }}</h4>
+    </div>
+    
+    <div class="time">
+        <h4>{{ product.pub_date_pretty }}</h4>
+    </div>     
+</div>
+
+<br />
+
+
+<div class="body">
+       <p class="wide">{{ product.body }}</p>
+
+</div>
+
+<form id="upvote" method="POST" action="{% url 'upvote' product.id %}">
+    {% csrf_token%}
+    <input type="hidden">
+</form>
+
+{% endblock %}
+
+</body>
+</html>
+
